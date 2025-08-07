@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url(https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&display=swap);
 body {
 	display: flex;
 	flex-direction: column;
@@ -9,10 +9,12 @@ body {
 
 .app-name {
     text-align: center;
-    font-size: 2.2rem;
-    font-weight: bold;
+    font-size: 4.5rem;
+    font-family: Bebas Neue, sans-serif;
+    font-weight: 700;
+    color: #dd92fb;
     margin-bottom: 15px;
-    text-shadow: 0px 5px 5px #ffffff;
+    text-shadow: 0px 6px 6px #000000;
 }
 
 .App * {
