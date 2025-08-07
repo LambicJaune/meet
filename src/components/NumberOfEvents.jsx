@@ -1,24 +1,21 @@
 // src/components/NumberOfEvents.jsx
 import React from 'react';
-import { useState } from 'react';
 
-const NumberOfEvents = () => {
-  const [eventCount, setEventCount] = useState(32);
-
+const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
   const handleInputChanged = (event) => {
-    setEventCount(Number(event.target.value));
+    setCurrentNOE(Number(event.target.value));
   };
 
-  return (
-    <div id="number-of-events">
-      <input
-        type="number"
-        role="textbox"
-        value={eventCount}
-        onChange={handleInputChanged}
-      />
-    </div>
-  );
+    return (
+        <div id="number-of-events">
+            <input
+                type="number"
+                role="textbox"
+                value={currentNOE}
+                onChange={handleInputChanged}
+            />
+        </div>
+    );
 };
 
 export default NumberOfEvents;
