@@ -13,7 +13,7 @@ const Event = ({ event }) => {
       <p>{event.location}</p>
       <p>{new Date(event.start.dateTime).toLocaleString()}</p>
 
-      <button onClick={handleToggleDetails}>
+      <button className="details-button" onClick={handleToggleDetails}>
         {showDetails ? 'Hide Details' : 'Show Details'}
       </button>
 

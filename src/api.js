@@ -36,17 +36,17 @@ export const getEvents = async () => {
         return mockData;
     }
 
-const token = await getAccessToken();
+    const token = await getAccessToken();
 
- if (token) {
-   removeQuery();
-   const url =  "https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
-   const response = await fetch(url);
-   const result = await response.json();
-   if (result) {
-     return result.events;
-   } else return null;
- }
+    if (token) {
+        removeQuery();
+        const url = "https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
+        const response = await fetch(url);
+        const result = await response.json();
+        if (result) {
+            return result.events;
+        } else return null;
+    }
 };
 
 export const getAccessToken = async () => {
@@ -72,28 +72,28 @@ export const getAccessToken = async () => {
 };
 
 const removeQuery = () => {
- let newurl;
- if (window.history.pushState && window.location.pathname) {
-   newurl =
-     window.location.protocol +
-     "//" +
-     window.location.host +
-     window.location.pathname;
-   window.history.pushState("", "", newurl);
- } else {
-   newurl = window.location.protocol + "//" + window.location.host;
-   window.history.pushState("", "", newurl);
- }
+    let newurl;
+    if (window.history.pushState && window.location.pathname) {
+        newurl =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            window.location.pathname;
+        window.history.pushState("", "", newurl);
+    } else {
+        newurl = window.location.protocol + "//" + window.location.host;
+        window.history.pushState("", "", newurl);
+    }
 };
 
 const getToken = async (code) => {
- const encodeCode = encodeURIComponent(code);
- const response = await fetch(
-   'https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode
- );
- const { access_token } = await response.json();
- access_token && localStorage.setItem("access_token", access_token);
+    const encodeCode = encodeURIComponent(code);
+    const response = await fetch(
+        'https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode
+    );
+    const { access_token } = await response.json();
+    access_token && localStorage.setItem("access_token", access_token);
 
 
- return access_token;
+    return access_token;
 };
