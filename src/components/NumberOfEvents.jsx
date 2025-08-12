@@ -5,15 +5,14 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
     const handleInputChanged = (event) => {
         const value = Number(event.target.value);
 
-          let errorText;
-        if (isNaN(value) || value <= 0 || value > 50) {
-            errorText = "You must enter a valid number of events"
-        } else {
-            errorText = "";
-            setCurrentNOE(value);
-        }
-        setErrorAlert(errorText);
-    };
+  setCurrentNOE(value); // Always update so the input reflects what the user typed
+
+  if (isNaN(value) || value <= 0 || value > 50) {
+    setErrorAlert("You must enter a valid number of events");
+  } else {
+    setErrorAlert("");
+  }
+};
 
     return (
         <div id="number-of-events">
