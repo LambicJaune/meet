@@ -1,7 +1,7 @@
 // src/components/Alert.jsx
 
 
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 
 class Alert extends Component {
@@ -46,4 +46,12 @@ class InfoAlert extends Alert {
  }
 }
 
-export { InfoAlert };
+class ErrorAlert extends Alert {
+ constructor(props) {
+   super(props);
+   this.color = 'rgba(222, 20, 20, 1)'; // red
+   this.bgColor = 'rgb(220, 220, 255)'; // light blue
+ }
+}
+
+export { InfoAlert, ErrorAlert };

@@ -40,8 +40,8 @@ describe('filter events by city', () => {
 
     beforeAll(async () => {
         browser = await puppeteer.launch({
-            headless: false,
-            slowMo: 100,
+            headless: true,
+            slowMo: 50,
             timeout: 0
         });
         page = await browser.newPage();

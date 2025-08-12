@@ -8,7 +8,15 @@ describe('<NumberOfEvents /> component', () => {
 
   function MockedNumberOfEvents() {
     const [currentNOE, setCurrentNOE] = React.useState(32);
-    return <NumberOfEvents currentNOE={currentNOE} setCurrentNOE={setCurrentNOE} />;
+    const [errorAlert, setErrorAlert] = React.useState("");
+     return (
+        <NumberOfEvents
+          currentNOE={currentNOE}
+          setCurrentNOE={setCurrentNOE}
+          errorAlert={errorAlert}
+          setErrorAlert={setErrorAlert}
+        />
+    );
   }
 
   test('renders textbox for specifying number of events', () => {
