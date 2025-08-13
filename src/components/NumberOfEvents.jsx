@@ -1,5 +1,6 @@
 // src/components/NumberOfEvents.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
     const handleInputChanged = (event) => {
@@ -24,6 +25,12 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE, setErrorAlert }) => {
             />
         </div>
     );
+};
+
+NumberOfEvents.propTypes = {
+  currentNOE: PropTypes.number.isRequired,
+  setCurrentNOE: PropTypes.func.isRequired,
+  setErrorAlert: PropTypes.func.isRequired,
 };
 
 export default NumberOfEvents;
