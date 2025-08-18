@@ -22,11 +22,6 @@ const EventGenresChart = ({ events }) => {
     }
 
     useEffect(() => {
-         if (!events || !Array.isArray(events)) {
-    setData([]);
-    return;
-  }
-  
         const getData = () => {
             return genres.map((genre) => {
                 const filteredEvents = events.filter(
@@ -73,10 +68,10 @@ const EventGenresChart = ({ events }) => {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
+                        outerRadius={outerRadius}
                         fill="#dd92fb"
                         labelLine={false}
                         label={renderCustomizedLabel}
-                        outerRadius={outerRadius}
                     >
                         {data.map((entry, index) => (
                             <Cell key={`cell-${index}`} />
