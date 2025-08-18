@@ -1,14 +1,11 @@
 'use strict';
 
-
 const { google } = require("googleapis");
 const calendar = google.calendar("v3");
+
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events.public.readonly"];
 const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
-const redirect_uris = [
-    "https://meet-beta-rosy.vercel.app/"
-];
-
+const redirect_uris = ["https://meet-beta-rosy.vercel.app/"];
 
 const oAuth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -16,74 +13,59 @@ const oAuth2Client = new google.auth.OAuth2(
     redirect_uris[0]
 );
 
+// Helper to include CORS headers
+const createResponse = (statusCode, body) => ({
+    statusCode,
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET,OPTIONS',
+    },
+    body: JSON.stringify(body),
+});
 
-module.exports.getAuthURL = async () => {
-    /**
-     *
-     * Scopes array is passed to the `scope` option.
-     *
-     */
-    const authUrl = oAuth2Client.generateAuthUrl({
-        access_type: "offline",
-        scope: SCOPES,
-    });
-
-
+// Generic OPTIONS handler
+module.exports.options = async () => {
     return {
         statusCode: 200,
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'GET,OPTIONS',
         },
-        body: JSON.stringify({ authUrl }),
+        body: '',
     };
 };
 
-module.exports.getAccessToken = async (event) => {
-    // Decode authorization code extracted from the URL query
-    const code = decodeURIComponent(`${event.pathParameters.code}`);
+// Endpoint: Get OAuth URL
+module.exports.getAuthURL = async () => {
+    const authUrl = oAuth2Client.generateAuthUrl({
+        access_type: "offline",
+        scope: SCOPES,
+    });
 
-
-    return new Promise((resolve, reject) => {
-        /**
-         *  Exchange authorization code for access token with a “callback” after the exchange,
-         *  The callback in this case is an arrow function with the results as parameters: “error” and “response”
-         */
-
-
-        oAuth2Client.getToken(code, (error, response) => {
-            if (error) {
-                return reject(error);
-            }
-            return resolve(response);
-        });
-    })
-        .then((results) => {
-            // Respond with OAuth token
-            return {
-                statusCode: 200,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true,
-                },
-                body: JSON.stringify(results.tokens),
-            };
-        })
-        .catch((error) => {
-            return {
-                statusCode: 500,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Credentials': true,
-                },
-                body: JSON.stringify(error),
-            };
-        });
+    return createResponse(200, { authUrl });
 };
 
+// Endpoint: Exchange code for access token
+module.exports.getAccessToken = async (event) => {
+    const code = decodeURIComponent(`${event.pathParameters.code}`);
+
+    return new Promise((resolve, reject) => {
+        oAuth2Client.getToken(code, (error, response) => {
+            if (error) return reject(error);
+            resolve(response);
+        });
+    })
+    .then(results => createResponse(200, results.tokens))
+    .catch(error => createResponse(500, { message: error.message || error }));
+};
+
+// Endpoint: Get calendar events
 module.exports.getCalendarEvents = async (event) => {
     const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
-
     oAuth2Client.setCredentials({ access_token });
 
     return new Promise((resolve, reject) => {
@@ -96,32 +78,11 @@ module.exports.getCalendarEvents = async (event) => {
                 orderBy: "startTime",
             },
             (error, response) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(response);
-                }
+                if (error) reject(error);
+                else resolve(response);
             }
         );
     })
-    
-        .then((results) => {
-        // Respond with OAuth token
-        return {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            body: JSON.stringify({ events: results.data.items })
-        };
-    })
-        .catch((error) => {
-            // Handle error
-            return {
-                statusCode: 500,
-                body: JSON.stringify(error),
-            };
-        });
+    .then(results => createResponse(200, { events: results.data.items }))
+    .catch(error => createResponse(500, { message: error.message || error }));
 };
-
