@@ -35,9 +35,7 @@ module.exports.getAuthURL = async () => {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': true,
         },
-        body: JSON.stringify({
-            authUrl,
-        }),
+        body: JSON.stringify({ authUrl }),
     };
 };
 
@@ -72,9 +70,12 @@ module.exports.getAccessToken = async (event) => {
             };
         })
         .catch((error) => {
-            // Handle error
             return {
                 statusCode: 500,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
                 body: JSON.stringify(error),
             };
         });
