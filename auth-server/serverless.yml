@@ -26,7 +26,6 @@ functions:
               - Authorization
               - X-Api-Key
             allowCredentials: false
-
   getAccessToken:
     handler: handler.getAccessToken
     events:
@@ -40,9 +39,7 @@ functions:
               - X-Amz-Date
               - Authorization
               - X-Api-Key
-            allowCredentials: false  
-            
-  getCalendarEvents:
+            allowCredentials: false  getCalendarEvents:
     handler: handler.getCalendarEvents
     events:
       - http:
