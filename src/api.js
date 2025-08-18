@@ -102,9 +102,8 @@ const getToken = async (code) => {
     const response = await fetch(
         'https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/token/${encodeCode}');
     const { access_token } = await response.json();
-    if (access_token) localStorage.setItem("access_token", access_token);
-    return access_token;
-};
+    access_token && localStorage.setItem("access_token", access_token);
 
-return access_token;
+
+    return access_token;
 };
