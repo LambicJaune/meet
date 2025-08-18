@@ -19,8 +19,7 @@ functions:
           path: api/get-auth-url
           method: get
           cors: 
-            origin: 
-              -'https://meet-beta-rosy.vercel.app'
+            origin: 'https://meet-beta-rosy.vercel.app'
             headers:
               - Content-Type
               - X-Amz-Date
@@ -35,8 +34,7 @@ functions:
           path: api/token/{code}
           method: get
           cors: 
-            origin: 
-              -'https://meet-beta-rosy.vercel.app'
+            origin: 'https://meet-beta-rosy.vercel.app'
             headers:
               - Content-Type
               - X-Amz-Date
@@ -51,8 +49,7 @@ functions:
           path: api/get-events/{access_token}
           method: get
           cors: 
-            origin: 
-              -'https://meet-beta-rosy.vercel.app'
+            origin: 'https://meet-beta-rosy.vercel.app'
             headers:
               - Content-Type
               - X-Amz-Date
