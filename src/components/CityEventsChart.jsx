@@ -22,32 +22,45 @@ const CityEventsChart = ({ allLocations, events }) => {
 
 
     return (
-        <ResponsiveContainer height={400}>
+        <ResponsiveContainer height={420}>
             <ScatterChart
                 margin={{
-                    top: 20,
+                    top: 30,
                     right: 20,
                     bottom: 60,
                     left: -30,
                 }}
             >
 
-                <CartesianGrid />
+                <CartesianGrid stroke="#fff" />
                 <XAxis
                     type="category"
                     dataKey="city"
                     name="City"
                     angle={60}
                     interval={0}
-                    tick={{ dx: 20, dy: 40, fontSize: 14 }}
+                    tick={{ dx: 20, dy: 40, fontSize: 15, fill: "#fff" }}
+                    axisLine={{ stroke: "#fff" }}  // axis color
+                    tickLine={{ stroke: "#fff" }}
                 />
                 <YAxis
                     type="number"
                     dataKey="count"
                     name="Number of Events"
                     allowDecimals={false}
+                    tick={{
+                        fontSize: 12,
+                        fill: "#fff",
+                    }}
+                    axisLine={{ stroke: "#fff" }}
+                    tickLine={{ stroke: "#fff" }}
                 />
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    contentStyle={{ backgroundColor: "#fff", border: "1px solid #fff" }}
+                    itemStyle={{ color: "#7b2cbf" }}
+                    labelStyle={{ color: "#fff" }}
+                />
                 <Scatter name="Events in City" data={data} fill="#8884d8" />
             </ScatterChart>
         </ResponsiveContainer>
