@@ -16,6 +16,10 @@ const oAuth2Client = new google.auth.OAuth2(
     redirect_uris[0]
 );
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "https://meet-beta-rosy.vercel.app",
+  "Access-Control-Allow-Credentials": true,
+};
 
 module.exports.getAuthURL = async () => {
     /**
@@ -32,12 +36,10 @@ module.exports.getAuthURL = async () => {
     return {
         statusCode: 200,
         headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'https://meet-beta-rosy.vercel.app',
             'Access-Control-Allow-Credentials': true,
         },
-        body: JSON.stringify({
-            authUrl,
-        }),
+        body: JSON.stringify({ authUrl }),
     };
 };
 
@@ -65,7 +67,7 @@ module.exports.getAccessToken = async (event) => {
             return {
                 statusCode: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'https://meet-beta-rosy.vercel.app',
                     'Access-Control-Allow-Credentials': true,
                 },
                 body: JSON.stringify(results),
@@ -109,7 +111,7 @@ module.exports.getCalendarEvents = async (event) => {
         return {
             statusCode: 200,
             headers: {
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://meet-beta-rosy.vercel.app',
                 'Access-Control-Allow-Credentials': true,
             },
             body: JSON.stringify({ events: results.data.items })
