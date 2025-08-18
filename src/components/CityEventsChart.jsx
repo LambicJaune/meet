@@ -61,7 +61,16 @@ const CityEventsChart = ({ allLocations, events }) => {
                     itemStyle={{ color: "#7b2cbf" }}
                     labelStyle={{ color: "#fff" }}
                 />
-                <Scatter name="Events in City" data={data} fill="#8884d8" />
+                <Scatter name="Events in City" data={data} shape={(props) => (
+                    <circle
+                        {...props}
+                        r={6}  // dot radius
+                        style={{
+                            fill: "#dd92fb",
+                            filter: "drop-shadow(2px 2px 4px rgba(0,0,0,0.4))"
+                        }}
+                    />
+                )} />
             </ScatterChart>
         </ResponsiveContainer>
     );
