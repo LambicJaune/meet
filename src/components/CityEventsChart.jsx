@@ -1,33 +1,28 @@
-// src/components/CityEventsChart.jsx
-
 import React, { useState, useEffect } from 'react';
 import {
-    ScatterChart,
-    Scatter,
-    XAxis, YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer
+    ScatterChart, Scatter, XAxis, YAxis,
+    CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 
 const CityEventsChart = ({ allLocations, events }) => {
     const [data, setData] = useState([]);
 
+    // Populate chart data when events change
     useEffect(() => {
         setData(getData());
-    }, [`${data}`]);
+    }, [`${events}`]); // stringify dependency so it triggers on changes
 
     const getData = () => {
-        const data = allLocations.map((location) => {
-            const count = events.filter((event) => event.location === location).length
-            const city = location.split((/, | - /))[0]
+        return allLocations.map((location) => {
+            const count = events.filter((event) => event.location === location).length;
+            const city = location.split(/, | - /)[0]; // Handles "Berlin, Germany" or "Dubai - UAE"
             return { city, count };
-        })
-        return data;
+        });
     };
 
+
     return (
-        <ResponsiveContainer width="99%" height={400}>
+        <ResponsiveContainer height={400}>
             <ScatterChart
                 margin={{
                     top: 20,
@@ -36,16 +31,27 @@ const CityEventsChart = ({ allLocations, events }) => {
                     left: -30,
                 }}
             >
+
                 <CartesianGrid />
-                <XAxis type="category" dataKey="city" name="City"
-                    angle={60} interval={0} tick={{ dx: 20, dy: 40, fontSize: 14 }}
+                <XAxis
+                    type="category"
+                    dataKey="city"
+                    name="City"
+                    angle={60}
+                    interval={0}
+                    tick={{ dx: 20, dy: 40, fontSize: 14 }}
                 />
-                <YAxis type="number" dataKey="count" name="Number of events" />
-                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                <Scatter name="A school" data={data} fill="#8884d8" />
+                <YAxis
+                    type="number"
+                    dataKey="count"
+                    name="Number of Events"
+                    allowDecimals={false}
+                />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Scatter name="Events in City" data={data} fill="#8884d8" />
             </ScatterChart>
         </ResponsiveContainer>
     );
-}
+};
 
 export default CityEventsChart;
