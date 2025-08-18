@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import CitySearch from './components/CitySearch';
 import EventList from './components/EventList';
 import NumberOfEvents from './components/NumberOfEvents';
+import CityEventsChart from './components/CityEventsChart';
 import { extractLocations, getEvents } from './api';
 import { InfoAlert, ErrorAlert, WarningAlert } from './components/Alert';
 import './App.css';
@@ -22,10 +23,10 @@ const App = () => {
 
     useEffect(() => {
         if (navigator.onLine) {
-      setWarningAlert('');
-    } else {
-      setWarningAlert('You are curently offline. The displayed events list has been loaded from your cache');
-    }
+            setWarningAlert('');
+        } else {
+            setWarningAlert('You are curently offline. The displayed events list has been loaded from your cache');
+        }
         fetchData();
     }, [currentCity, currentNOE]);
 
@@ -51,10 +52,11 @@ const App = () => {
                 allLocations={allLocations}
                 setCurrentCity={setCurrentCity}
                 setInfoAlert={setInfoAlert} />
-            <NumberOfEvents 
-            currentNOE={currentNOE} 
-            setCurrentNOE={setCurrentNOE}
-            setErrorAlert={setErrorAlert}/>
+            <NumberOfEvents
+                currentNOE={currentNOE}
+                setCurrentNOE={setCurrentNOE}
+                setErrorAlert={setErrorAlert} />
+            <CityEventsChart allLocations={allLocations} events={events} />
             <EventList events={events} />
         </div>
     );
