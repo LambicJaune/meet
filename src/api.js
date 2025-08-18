@@ -49,12 +49,12 @@ export const getEvents = async () => {
         const url = "https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
         const response = await fetch(url);
         const result = await response.json();
-        if (result) {
+        if (result && result.events) {
             NProgress.done();
             localStorage.setItem('lastEvents', JSON.stringify(result.events));
             return result.events;
         } else {
-            return null;
+            return [];
         }
     }
 };
