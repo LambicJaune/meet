@@ -15,8 +15,8 @@ const EventGenresChart = ({ events }) => {
 
     function getResponsiveRadius() {
         const width = window.innerWidth;
-        if (width <= 360) return 60;
-        if (width <= 420) return 80;
+        if (width <= 360) return 50;
+        if (width <= 420) return 70;
         if (width <= 768) return 100;
         return 120;
     }
