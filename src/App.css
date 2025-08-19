@@ -110,6 +110,7 @@ input[type="number"] {
     width: 100%;
     max-width: 1200px;
     min-width: 0;
+    padding: 0;
 }
 
 
