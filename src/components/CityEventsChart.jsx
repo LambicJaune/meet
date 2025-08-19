@@ -10,7 +10,12 @@ const CityEventsChart = ({ allLocations, events }) => {
     // Populate chart data when events change
     useEffect(() => {
         setData(getData());
-    }, [`${events}`]); // stringify dependency so it triggers on changes
+
+        // force Recharts to recalc layout after data updates
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
+        }, 0);
+    }, [events]); // no need for `${events}`, just track events directly
 
     const getData = () => {
         return allLocations.map((location) => {
@@ -21,9 +26,11 @@ const CityEventsChart = ({ allLocations, events }) => {
     };
 
 
+
     return (
         <ResponsiveContainer minWidth={350} width="99%" height={420}>
             <ScatterChart
+                key={JSON.stringify(data)}
                 margin={{
                     top: 30,
                     right: 25,
