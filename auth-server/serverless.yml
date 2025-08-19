@@ -17,7 +17,15 @@ functions:
       - http:
           path: api/get-auth-url
           method: get
-          cors: true
+          cors:
+            origin: 'https://meet-beta-rosy.vercel.app'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowCredentials: false
 
   getAccessToken:
     handler: handler.getAccessToken
@@ -25,7 +33,15 @@ functions:
       - http:
           path: api/token/{code}
           method: get
-          cors: true
+          cors:
+            origin: 'https://meet-beta-rosy.vercel.app'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowCredentials: false
 
   getCalendarEvents:
     handler: handler.getCalendarEvents
@@ -33,4 +49,12 @@ functions:
       - http:
           path: api/get-events/{access_token}
           method: get
-          cors: true
+          cors:
+            origin: 'https://meet-beta-rosy.vercel.app'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+            allowCredentials: false
