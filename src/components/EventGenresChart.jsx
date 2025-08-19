@@ -11,6 +11,7 @@ const EventGenresChart = ({ events }) => {
     const [outerRadius, setOuterRadius] = useState(getResponsiveRadius());
 
     const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
+    
 
     function getResponsiveRadius() {
         const width = window.innerWidth;
@@ -19,6 +20,12 @@ const EventGenresChart = ({ events }) => {
         if (width <= 768) return 100;
         return 120;
     }
+
+    const formatLabel = (name) => {
+        if (name === 'JavaScript') return 'JS';
+        return name;
+    };
+
 
     useEffect(() => {
         const getData = () => {
@@ -37,7 +44,7 @@ const EventGenresChart = ({ events }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
+    
     const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, percent, index }) => {
         const RADIAN = Math.PI / 180;
         const labelOffset = outerRadius * 0.25;
@@ -54,7 +61,7 @@ const EventGenresChart = ({ events }) => {
                 dominantBaseline="central"
                 fontSize={15}
             >
-                {`${genres[index]} ${(percent * 100).toFixed(0)}%`}
+                {`${formatLabel(genres[index])} ${(percent * 100).toFixed(0)}%`}
             </text>
         ) : null;
     };
