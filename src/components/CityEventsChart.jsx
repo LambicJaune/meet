@@ -28,7 +28,7 @@ const CityEventsChart = ({ allLocations, events }) => {
                     top: 30,
                     right: 25,
                     bottom: 60,
-                    left: 0,
+                    left: -30,
                 }}
             >
 
