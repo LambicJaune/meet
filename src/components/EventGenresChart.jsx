@@ -67,7 +67,7 @@ const EventGenresChart = ({ events }) => {
     };
 
     return (
-            <ResponsiveContainer minWidth={350} width="99%" height={400}>
+            <ResponsiveContainer minWidth={330} width="99%" height={400}>
                 <PieChart margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
 
                     <Pie
