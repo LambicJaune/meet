@@ -24,6 +24,7 @@ const CityEventsChart = ({ allLocations, events }) => {
     return (
         <ResponsiveContainer minWidth={350} width="99%" height={420}>
             <ScatterChart
+                key={JSON.stringify(data)}
                 margin={{
                     top: 30,
                     right: 25,
