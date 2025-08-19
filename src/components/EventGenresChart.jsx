@@ -11,7 +11,7 @@ const EventGenresChart = ({ events }) => {
     const [outerRadius, setOuterRadius] = useState(getResponsiveRadius());
 
     const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
-    
+
 
     function getResponsiveRadius() {
         const width = window.innerWidth;
@@ -44,7 +44,7 @@ const EventGenresChart = ({ events }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-    
+
     const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, percent, index }) => {
         const RADIAN = Math.PI / 180;
         const labelOffset = outerRadius * 0.25;
@@ -67,26 +67,26 @@ const EventGenresChart = ({ events }) => {
     };
 
     return (
-            <ResponsiveContainer minWidth={350} width="99%" height={400}>
-                <PieChart margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
+        <ResponsiveContainer minWidth={350} width="99%" height={400}>
+            <PieChart margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
 
-                    <Pie
-                        data={data}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={outerRadius}
-                        fill="#dd92fb"
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                    >
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} />
-                        ))}
-                    </Pie>
-                </PieChart>
-            </ResponsiveContainer>
+                <Pie
+                    data={data || []}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={outerRadius}
+                    fill="#dd92fb"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                >
+                    {(data || []).map((entry, index) => (
+                        <Cell key={`cell-${index}`} />
+                    ))}
+                </Pie>
+            </PieChart>
+        </ResponsiveContainer>
     );
 };
 
