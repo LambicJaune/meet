@@ -1,10 +1,11 @@
 @import url(https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&display=swap);
+
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 2% 5%;
-    background: linear-gradient(90deg,rgb(35, 61, 133) 0%, rgba(87, 141, 199, 1) 50%, rgb(130, 41, 165) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 5%;
+    background: linear-gradient(90deg, rgb(35, 61, 133) 0%, rgba(87, 141, 199, 1) 50%, rgb(130, 41, 165) 100%);
 }
 
 .app-name {
@@ -18,96 +19,103 @@ body {
 }
 
 .App * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 ul {
-	padding: 0;
-	list-style: none;
+    padding: 0;
+    list-style: none;
 }
 
 p {
-	margin: 5px 0;
+    margin: 5px 0;
 }
 
 input[type="text"],
 input[type="number"] {
-	padding: 8px 6px 8px 10px;
-	border-radius: 10px;
-	outline: none;
-	border: 1px solid #ccc;
-	font-size: 1rem;
-	line-height: 20px;
-	align-self: center;
+    padding: 8px 6px 8px 10px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    line-height: 20px;
+    align-self: center;
     text-align: center;
-	height: 38px;
-	margin-bottom: 20px;
+    height: 38px;
+    margin-bottom: 20px;
     width: 60vw;
 }
 
-#city-search, #number-of-events {
-	display: flex;
-	flex-direction: column;
-	margin: auto;
-	position: relative;
+#city-search,
+#number-of-events {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    position: relative;
 }
 
 
 .suggestions {
-	width: 60vw;
-	position: absolute;
-	top: 45px;
-	z-index: 2;
-	align-self: center;
-	margin: 0;
-	font-size: 1rem;
-	box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
+    width: 60vw;
+    position: absolute;
+    top: 45px;
+    z-index: 2;
+    align-self: center;
+    margin: 0;
+    font-size: 1rem;
+    box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
-.suggestions > li {
-	text-align: left;
-	padding: 8px 6px 8px 10px;
-	background-color: #eee;
-	cursor: default;
+.suggestions>li {
+    text-align: left;
+    padding: 8px 6px 8px 10px;
+    background-color: #eee;
+    cursor: default;
 }
 
-.suggestions > li:last-child {
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
+.suggestions>li:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
-.suggestions > li:hover {
-	background-color: #bcdcdb;
+.suggestions>li:hover {
+    background-color: #bcdcdb;
 }
 
 .event {
-	padding: 10px 10px 35px;
-	margin-bottom: 10px;
-	text-align: center;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	position: relative;
+    padding: 10px 10px 35px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    position: relative;
     font-size: 1.15rem;
-    background: linear-gradient(90deg,rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.2) 100%);}
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.2) 100%);
+}
 
 .alerts-container {
-	position: fixed;
-	top: 10px;
-	left: 20px;
-	width: 250px;
-	z-index: 1000;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    width: 250px;
+    z-index: 1000;
 }
 
 
 .charts-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 0;
 }
 
+
 @media (max-width: 768px) {
-  .charts-container {
-    grid-template-columns: 1fr;
-  }
+    .charts-container {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
 }
