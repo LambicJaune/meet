@@ -14,11 +14,10 @@ const EventGenresChart = ({ events }) => {
 
     function getResponsiveRadius() {
         const width = window.innerWidth;
-        if (width <= 360) return 50;
-        if (width <= 375) return 50;
-        if (width <= 400) return 80;
-        if (width <= 420) return 90;
-        return 130;
+        if (width <= 360) return 60;
+        if (width <= 420) return 80;
+        if (width <= 768) return 100;
+        return 120;
     }
 
     useEffect(() => {
@@ -41,9 +40,10 @@ const EventGenresChart = ({ events }) => {
 
     const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, percent, index }) => {
         const RADIAN = Math.PI / 180;
-        const radius = outerRadius;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.15;
-        const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.15;
+        const labelOffset = outerRadius * 0.25;
+        const radius = outerRadius + labelOffset;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return percent > 0 ? (
             <text
@@ -61,7 +61,7 @@ const EventGenresChart = ({ events }) => {
 
     return (
             <ResponsiveContainer width="99%" height={400}>
-                <PieChart>
+                <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                     <Pie
                         data={data}
                         dataKey="value"
