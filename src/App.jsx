@@ -33,6 +33,11 @@ const App = () => {
 
     const fetchData = async () => {
         const allEvents = await getEvents();
+        if (!allEvents) {
+            console.error("getEvents() returned", allEvents);
+            setEvents([]);
+            return;
+        }
         const filteredEvents = currentCity === "See all cities" ?
             allEvents :
             allEvents.filter(event => event.location === currentCity)
