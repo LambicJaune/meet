@@ -32,15 +32,31 @@ const App = () => {
     }, [currentCity, currentNOE]);
 
     const fetchData = async () => {
-        const allEvents = await getEvents();
-        const filteredEvents = currentCity === "See all cities" ?
-            allEvents :
-            allEvents.filter(event => event.location === currentCity)
-        setEvents(filteredEvents.slice(0, currentNOE));
-        setAllLocations(extractLocations(allEvents));
+        try {
+            const allEvents = await getEvents();
 
-    }
 
+            if (!Array.isArray(allEvents)) {
+                console.error("getEvents() did not return an array:", allEvents);
+                setEvents([]);
+                setAllLocations([]);
+                return;
+            }
+
+            const filteredEvents =
+                currentCity === "See all cities"
+                    ? allEvents
+                    : allEvents.filter(event => event.location === currentCity);
+
+            // Defensive slice
+            setEvents((filteredEvents || []).slice(0, currentNOE));
+            setAllLocations(extractLocations(allEvents));
+        } catch (err) {
+            console.error("Error in fetchData:", err);
+            setEvents([]);
+            setAllLocations([]);
+        }
+    };
     return (
         <div className="App">
             <div className="app-name">MEET</div>

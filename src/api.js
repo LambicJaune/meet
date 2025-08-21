@@ -32,32 +32,50 @@ const checkToken = async (accessToken) => {
  * This function will fetch the list of all events
  */
 export const getEvents = async () => {
-    if (window.location.href.startsWith('http://localhost')) {
-        return mockData;
-    }
+    try {
+        // Local mock data in dev
+        if (window.location.href.startsWith("http://localhost")) {
+            return Array.isArray(mockData) ? mockData : [];
+        }
 
-    if (!navigator.onLine) {
-        const events = localStorage.getItem("lastEvents");
-        NProgress.done();
-        return events ? JSON.parse(events) : [];
-    }
-
-    const token = await getAccessToken();
-
-    if (token) {
-        removeQuery();
-        const url = "https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" + "/" + token;
-        const response = await fetch(url);
-        const result = await response.json();
-        if (result && result.events) {
+        // Offline: load cached events
+        if (!navigator.onLine) {
+            const events = localStorage.getItem("lastEvents");
             NProgress.done();
-            localStorage.setItem('lastEvents', JSON.stringify(result.events));
-            return result.events;
-        } else {
+            const parsed = events ? JSON.parse(events) : [];
+            return Array.isArray(parsed) ? parsed : [];
+        }
+
+        // Online: fetch from API
+        const token = await getAccessToken();
+        if (!token) {
+            console.error("No access token received");
             return [];
         }
+
+        removeQuery();
+        const url =
+            "https://fpet8zsw47.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" +
+            "/" +
+            token;
+
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (result && Array.isArray(result.events)) {
+            NProgress.done();
+            localStorage.setItem("lastEvents", JSON.stringify(result.events));
+            return result.events;
+        }
+
+        console.error("API returned unexpected result:", result);
+        return [];
+    } catch (err) {
+        console.error("getEvents failed:", err);
+        return [];
     }
 };
+
 
 export const getAccessToken = async () => {
     const accessToken = localStorage.getItem('access_token');
